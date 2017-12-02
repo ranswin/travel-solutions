@@ -34,6 +34,7 @@ class sale_order_line(osv.osv):
             return res
         if context is None:
             context = {}
+        # this new code added
         frm_cur = self.pool.get('res.users').browse(cr, uid, uid).company_id.currency_id.id
         to_cur = self.pool.get('product.pricelist').browse(cr, uid, [pricelist])[0].currency_id.id
         if product:
@@ -56,7 +57,6 @@ class sale_order_line(osv.osv):
             res[line.id] = 0
             if line.product_id:
                 price = line.purchase_price
-
                 if not price:
                     from_cur = self.pool['res.users'].browse(cr, uid, uid, context=context).company_id.currency_id
                     cost = line.product_id.standard_price
